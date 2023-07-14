@@ -1,8 +1,9 @@
 (ns app.client
   (:require
-    [com.fulcrologic.fulcro.application :as app]
-    [com.fulcrologic.fulcro.components :as comp :refer [defsc]]
     [app.components.todo-list :refer [ui-todo-list]]
+    [com.fulcrologic.fulcro.application :as app]
+    [com.fulcrologic.fulcro.components :as comp :refer [defsc, fragment]]
+    [com.fulcrologic.fulcro.dom :refer [h1]]
     [test.mockups.todo-list :refer [test-todo-list]]
     ))
 
@@ -10,7 +11,10 @@
 
 (defsc Root [this props]
   {:use-hooks? true}
-  (ui-todo-list {:todo-list/items test-todo-list}))
+  (fragment
+    (h1 "Todojure")
+    (ui-todo-list {:todo-list/items test-todo-list}))
+  )
 
 (defn ^:export init
   "Shadow-cljs sets this up to be our entry-point function. See shadow-cljs.edn `:init-fn` in the modules of the main build."

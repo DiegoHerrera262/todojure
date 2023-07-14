@@ -1,7 +1,7 @@
 (ns app.components.todo-item
   (:require
-    [com.fulcrologic.fulcro.components :as comp :refer [defsc, factory]]
-    [com.fulcrologic.fulcro.dom :as dom :refer [li, div, button]]))
+    [com.fulcrologic.fulcro.components :refer [defsc, factory]]
+    [com.fulcrologic.fulcro.dom :refer [button  , div, li]]))
 
 (defsc TodoItem
   [this {:todo/keys [status, description, on-change-status]}]
