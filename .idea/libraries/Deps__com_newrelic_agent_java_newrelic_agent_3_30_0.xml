@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Deps: com.newrelic.agent.java/newrelic-agent:3.30.0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/newrelic/agent/java/newrelic-agent/3.30.0/newrelic-agent-3.30.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

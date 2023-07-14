@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Deps: prone:1.0.1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/prone/prone/1.0.1/prone-1.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Deps: org.martinklepsch/clj-http-lite:0.4.1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/martinklepsch/clj-http-lite/0.4.1/clj-http-lite-0.4.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Deps: org.zeromq/cljzmq:0.1.4">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/zeromq/cljzmq/0.1.4/cljzmq-0.1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

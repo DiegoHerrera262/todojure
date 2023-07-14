@@ -1,0 +1,13 @@
+{
+  "name": "fulcro-pathom",
+  "version": "1.0.0",
+  "description": "Toy fulcro project",
+  "main": "index.js",
+  "author": "diegoherrera262",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "shadow-cljs": "^2.24.1"
+  }
+}

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Deps: raven-clj:1.6.0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/raven-clj/raven-clj/1.6.0/raven-clj-1.6.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

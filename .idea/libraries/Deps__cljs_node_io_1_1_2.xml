@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Deps: cljs-node-io:1.1.2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/cljs-node-io/cljs-node-io/1.1.2/cljs-node-io-1.1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
