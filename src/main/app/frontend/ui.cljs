@@ -3,10 +3,12 @@
     [app.frontend.components.todo-list :refer [ui-todo-list, TodoList]]
     [com.fulcrologic.fulcro.components :refer [defsc, fragment, get-initial-state, get-query]]
     [com.fulcrologic.fulcro.dom :refer [h1]]
+    [com.fulcrologic.fulcro.data-fetch :as df]
     ))
 
 (defsc Root [this {:keys [todo-list]}]
   {:query [{:todo-list (get-query TodoList)}]}
+  (df/load! this :todo-list TodoList)
   (fragment
     (h1 "Todojure")
     (when todo-list

@@ -9,7 +9,6 @@
 
 (defn ^:export init []
   (app/mount! app ui/Root "app")
-  (df/load! app :todo-list todo-list/TodoList)
   (js/console.log "Loaded"))
 
 (defn ^:export refresh []
