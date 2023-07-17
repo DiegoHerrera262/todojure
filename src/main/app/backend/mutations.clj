@@ -6,8 +6,8 @@
 (defn filter-id [list, id]
   (filterv #(not= id %) list))
 
-(pc/defmutation delete-todo [_ {:keys [todo-id, list-id]}]
-  {::pc/sym    'delete-todo
+(pc/defmutation delete-task [_ {:keys [todo-id, list-id]}]
+  {::pc/sym    'app.frontend.mutations.todo-list/delete-task
    ::pc/params [:todo-id :list-id]}
   (println (str "Removing todo " todo-id " from list " list-id))
   ; remove from to do table
@@ -16,8 +16,8 @@
   (swap! list-table update-in [:todo-list :list/items] (fn [prev] (filter-id prev todo-id)))
   {:todo/id todo-id})
 
-(pc/defmutation update-todo [_ {:keys [id, status, description]}]
-  {::pc/sym    'update-todo
+(pc/defmutation update-task [_ {:keys [id, status, description]}]
+  {::pc/sym    'app.frontend.mutations.todo-list/update-task
    ::pc/params [:id, :status, :description]}
   (println (str "Updating todo " id))
   (let [
@@ -27,4 +27,4 @@
     (swap! todo-table assoc-in path new-task)
     new-task))
 
-(def mutations [delete-todo, update-todo])
+(def mutations [delete-task, update-task])
