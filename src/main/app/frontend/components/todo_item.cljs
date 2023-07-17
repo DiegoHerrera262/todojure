@@ -1,4 +1,4 @@
-(ns app.components.todo-item
+(ns app.frontend.components.todo-item
   (:require
     [com.fulcrologic.fulcro.components :refer [defsc, factory]]
     [com.fulcrologic.fulcro.dom :refer [button, div, li, input]]))

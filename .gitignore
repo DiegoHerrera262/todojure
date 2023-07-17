@@ -2,3 +2,5 @@ node_modules
 .shadow-cljs
 resources/public/js
 .nrepl-port
+.idea
+.clj-kondo

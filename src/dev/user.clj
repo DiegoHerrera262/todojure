@@ -1,7 +1,7 @@
 (ns user
   (:require
-    [app.server :as server]
-    [clojure.tools.namespace.repl :as tools-ns :refer [set-refresh-dirs refresh]]))
+    [app.backend.server :as server]
+    [clojure.tools.namespace.repl :refer [set-refresh-dirs refresh]]))
 
 ;; Ensure we only refresh the source we care about. This is important
 ;; because `resources` is on our classpath, and we don't want to
@@ -9,12 +9,14 @@
 (set-refresh-dirs "src/dev" "src/main")
 
 (defn start []
+  (println "Init app")
   (server/start))
 
 (defn restart
   "Stop the server, reload all source code, then restart the server.
   See documentation of tools.namespace.repl for more information."
   []
+  (println "Restarting server...")
   (server/stop)
   (refresh :after 'user/start))
 

@@ -1,6 +1,6 @@
-(ns app.ui
+(ns app.frontend.ui
   (:require
-    [app.components.todo-list :refer [ui-todo-list, TodoList]]
+    [app.frontend.components.todo-list :refer [ui-todo-list, TodoList]]
     [com.fulcrologic.fulcro.components :refer [defsc, fragment, get-initial-state, get-query]]
     [com.fulcrologic.fulcro.dom :refer [h1]]
     ))

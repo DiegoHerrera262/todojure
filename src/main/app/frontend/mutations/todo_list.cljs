@@ -1,4 +1,4 @@
-(ns app.mutations.todo-list
+(ns app.frontend.mutations.todo-list
   (:require [com.fulcrologic.fulcro.mutations :as m :refer [defmutation]]
             [com.fulcrologic.fulcro.algorithms.merge :as merge]))
 
@@ -20,8 +20,6 @@
 
 (defmutation delete-task
   "Delete task todo-id from list todo-list-id"
-  [{:keys [todo-id, todo-list-id]}]
+  [{:keys [todo-id, list-id]}]
   (action [{:keys [state]}]
-          (println todo-id)
-          (println todo-list-id)
-          (swap! state merge/remove-ident* [:todo/id todo-id] [:todo-list/id todo-list-id :todo-list/items])))
+          (swap! state merge/remove-ident* [:todo/id todo-id] [:list/id list-id :list/items])))

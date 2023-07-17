@@ -1,23 +1,23 @@
-(ns app.components.todo-list
+(ns app.frontend.components.todo-list
   (:require
-    [app.components.todo-item :refer [TodoItem, ui-todo-item]]
-    [app.mutations.todo-list :as todo-api]
+    [app.frontend.components.todo-item :refer [TodoItem, ui-todo-item]]
+    [app.frontend.mutations.todo-list :as todo-api]
     [com.fulcrologic.fulcro.components :refer [defsc, factory, get-initial-state, get-query, computed, transact!]]
     [com.fulcrologic.fulcro.dom :refer [button, div, ul]]
     ))
 
 (defsc TodoList
-  [this {:list/keys [items] :as props}]
-  {:query         [{:list/items (get-query TodoItem)}]
-   :ident         (fn [] [:list/id (:list/id props)])}
+  [this {:list/keys [items, id] :as props}]
+  {:query [:list/id {:list/items (get-query TodoItem)}]
+   :ident (fn [] [:list/id (:list/id props)])}
   (let [
-        change-status (fn [id, status]
+        change-status (fn [todo-id, status]
                         (transact! this
                                    [(todo-api/update-task
-                                      {:id id :status (if (= status "DONE") "PENDING" "DONE")})]))
-        delete-task (fn [id]
+                                      {:id todo-id :status (if (= status "DONE") "PENDING" "DONE")})]))
+        delete-task (fn [todo-id]
                       (transact! this
-                                 [(todo-api/delete-task {:todo-id id})]))
+                                 [(todo-api/delete-task {:todo-id todo-id :list-id id})]))
         ui-todo-item-comp (fn [task] (ui-todo-item (
                                                      computed task {
                                                                     :onChangeStatus change-status

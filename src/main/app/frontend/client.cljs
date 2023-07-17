@@ -1,8 +1,8 @@
-(ns app.client
+(ns app.frontend.client
   (:require
-    [app.application :refer [app]]
-    [app.ui :as ui]
-    [app.components.todo-list :as todo-list]
+    [app.frontend.application :refer [app]]
+    [app.frontend.ui :as ui]
+    [app.frontend.components.todo-list :as todo-list]
     [com.fulcrologic.fulcro.components :as comp]
     [com.fulcrologic.fulcro.application :as app]
     [com.fulcrologic.fulcro.data-fetch :as df]))
