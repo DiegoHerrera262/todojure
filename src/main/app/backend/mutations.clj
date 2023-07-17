@@ -16,4 +16,15 @@
   (swap! list-table update-in [:todo-list :list/items] (fn [prev] (filter-id prev todo-id)))
   {:todo/id todo-id})
 
-(def mutations [delete-todo])
+(pc/defmutation update-todo [_ {:keys [id, status, description]}]
+  {::pc/sym    'update-todo
+   ::pc/params [:id, :status, :description]}
+  (println (str "Updating todo " id))
+  (let [
+        path [id]
+        old-task (get-in @todo-table path)
+        new-task (change-task-data old-task status description)]
+    (swap! todo-table assoc-in path new-task)
+    new-task))
+
+(def mutations [delete-todo, update-todo])
