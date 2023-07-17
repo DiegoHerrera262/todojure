@@ -25,3 +25,11 @@
   (action [{:keys [state]}]
           (swap! state merge/remove-ident* [:todo/id todo-id] [:list/id list-id :list/items]))
   (remote [_] true))
+
+(defmutation create-task
+  "Create task in to do list"
+  [{:keys [description]}]
+  (action [{:keys [state]}]
+          (swap! state assoc-in [:todo/id 0] {:todo/id 0 :status "PENDING" :description description})
+          (swap! state update-in [:list/id :todo-list :list/items] (fn [prev] (conj prev [:todo/id 0]))))
+  (remote [_] true))
