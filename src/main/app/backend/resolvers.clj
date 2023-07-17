@@ -1,25 +1,16 @@
 (ns app.backend.resolvers
   (:require
-    [com.wsscode.pathom.core :as p]
+    [app.backend.db :refer [todo-table, list-table]]
     [com.wsscode.pathom.connect :as pc]))
-+
-(def todo-table
-  {1 {:todo/id 1 :todo/description "Build simple front" :todo/status "DONE"}
-   2 {:todo/id 2 :todo/description "Integrate front with local db" :todo/status "DONE"}
-   3 {:todo/id 3 :todo/description "Add local mutations" :todo/status "DONE"}
-   4 {:todo/id 4 :todo/description "Integrate with pathom" :todo/status "PENDING"}})
-
-(def list-table
-  {:todo-list {:list/id :todo-list :list/items [1 2 3 4]}})
 
 (defn get-todos-by-list [list-id]
-  (when-let [t-list (get list-table list-id)]
-    (assoc t-list :list/items (mapv (fn [id] (get todo-table id)) (:list/items t-list)))))
+  (when-let [t-list (get @list-table list-id)]
+    (assoc t-list :list/items (mapv (fn [id] (get @todo-table id)) (:list/items t-list)))))
 
 (pc/defresolver todo-by-id-resolver [_ {:todo/keys [id]}]
                 {::pc/input  #{:todo/id}
                  ::pc/output [:todo/id :todo/description :todo/status]}
-                (get todo-table id))
+                (get @todo-table id))
 
 (pc/defresolver list-by-id-resolver [_ {:list/keys [id]}]
                 {::pc/input  #{:list/id}

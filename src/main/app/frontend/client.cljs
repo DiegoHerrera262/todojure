@@ -2,10 +2,8 @@
   (:require
     [app.frontend.application :refer [app]]
     [app.frontend.ui :as ui]
-    [app.frontend.components.todo-list :as todo-list]
     [com.fulcrologic.fulcro.components :as comp]
-    [com.fulcrologic.fulcro.application :as app]
-    [com.fulcrologic.fulcro.data-fetch :as df]))
+    [com.fulcrologic.fulcro.application :as app]))
 
 (defn ^:export init []
   (app/mount! app ui/Root "app")
