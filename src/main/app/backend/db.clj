@@ -1,4 +1,7 @@
 (ns app.backend.db)
+
+(def todo-index (atom 5))
+
 (def todo-table
   (atom {1 {:todo/id 1 :todo/description "Build simple front" :todo/status "DONE"}
    2 {:todo/id 2 :todo/description "Integrate front with local db" :todo/status "DONE"}

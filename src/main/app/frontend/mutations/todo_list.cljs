@@ -1,12 +1,12 @@
 (ns app.frontend.mutations.todo-list
-  (:require [com.fulcrologic.fulcro.mutations :as m :refer [defmutation]]
-            [com.fulcrologic.fulcro.algorithms.merge :as merge]))
+  (:require [com.fulcrologic.fulcro.algorithms.merge :as merge]
+            [com.fulcrologic.fulcro.mutations :refer [defmutation]]))
 
 (defn change-task-data
   [task, status, description]
   (let [new-status (or status (:todo/status task))
         new-description (or description (:todo/description task))]
-  (assoc task :todo/status new-status :todo/description new-description)))
+    (assoc task :todo/status new-status :todo/description new-description)))
 
 (defmutation update-task
   "Update task info by id"
@@ -16,10 +16,12 @@
                 path [:todo/id id]
                 old-task (get-in @state path)
                 new-task (change-task-data old-task status description)]
-            (swap! state assoc-in path new-task))))
+            (swap! state assoc-in path new-task)))
+  (remote [_] true))
 
 (defmutation delete-task
   "Delete task todo-id from list todo-list-id"
   [{:keys [todo-id, list-id]}]
   (action [{:keys [state]}]
-          (swap! state merge/remove-ident* [:todo/id todo-id] [:list/id list-id :list/items])))
+          (swap! state merge/remove-ident* [:todo/id todo-id] [:list/id list-id :list/items]))
+  (remote [_] true))

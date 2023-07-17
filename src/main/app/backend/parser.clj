@@ -1,11 +1,12 @@
 (ns app.backend.parser
   (:require
     [app.backend.resolvers :as backend-resolvers]
+    [app.backend.mutations :as backend-mutations]
     [com.wsscode.pathom.core :as p]
     [com.wsscode.pathom.connect :as pc]
     [taoensso.timbre :as log]))
 
-(def resolvers [backend-resolvers/resolvers])
+(def api-registry [backend-resolvers/resolvers backend-mutations/mutations])
 
 (def pathom-parser
   (p/parser {::p/env     {::p/reader                 [p/map-reader
@@ -14,7 +15,7 @@
                                                       pc/index-reader]
                           ::pc/mutation-join-globals [:tempids]}
              ::p/mutate  pc/mutate
-             ::p/plugins [(pc/connect-plugin {::pc/register resolvers})
+             ::p/plugins [(pc/connect-plugin {::pc/register api-registry})
                           p/error-handler-plugin
                           ;; or p/elide-special-outputs-plugin
                           (p/post-process-parser-plugin p/elide-not-found)]}))
