@@ -1,6 +1,13 @@
-node_modules
-.shadow-cljs
 resources/public/js
+
+node_modules
+
+# Build cache
+.shadow-cljs
+
+# Editor config
 .nrepl-port
 .idea
+.lsp
+.cpcache
 .clj-kondo
