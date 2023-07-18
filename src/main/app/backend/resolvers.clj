@@ -1,24 +1,35 @@
 (ns app.backend.resolvers
   (:require
-    [app.backend.db :refer [todo-table, list-table]]
+    [app.backend.db :refer [task-table]]
     [com.wsscode.pathom.connect :as pc]))
 
-(defn get-todos-by-list [list-id]
-  (when-let [t-list (get @list-table list-id)]
-    (assoc t-list :list/items (mapv (fn [id] (get @todo-table id)) (:list/items t-list)))))
+(defn filter-tasks-by-list
+  "Function for filtering task list by status"
+  [list-id]
+  (if (= list-id :all)
+    (vals @task-table)
+    (filterv #(= list-id (:task/status %)) (vals @task-table)))
+  )
 
-(pc/defresolver todo-by-id-resolver [_ {:todo/keys [id]}]
-  {::pc/input  #{:todo/id}
-   ::pc/output [:todo/id :todo/description :todo/status]}
-  (get @todo-table id))
+(defn get-tasks-by-list
+  "Function for retrieving possibly filtered task-list"
+  [list-id]
+  (-> {}
+      (assoc :list/id list-id)
+      (assoc :list/items (filter-tasks-by-list list-id))))
+
+(pc/defresolver task-by-id-resolver [_ {:task/keys [id]}]
+  {::pc/input  #{:task/id}
+   ::pc/output [:task/id :task/description :task/status]}
+  (get @task-table id))
 
 (pc/defresolver list-by-id-resolver [_ {:list/keys [id]}]
   {::pc/input  #{:list/id}
    ::pc/output [:list/id :list/items]}
-  (get-todos-by-list id))
+  (get-tasks-by-list id))
 
-(pc/defresolver todo-list-resolver [_ _]
-  {::pc/output [{:todo-list [:list/id :list/items]}]}
-  {:todo-list {:list/id :todo-list}})
+(pc/defresolver task-list-resolver [_ _]
+  {::pc/output [{:task-list [:list/id :list/items]}]}
+  {:task-list {:list/id :all}})
 
-(def resolvers [todo-by-id-resolver, list-by-id-resolver, todo-list-resolver])
+(def resolvers [task-by-id-resolver, list-by-id-resolver, task-list-resolver])

@@ -1,28 +1,28 @@
-(ns app.frontend.components.todo-list
+(ns app.frontend.components.task-list
   (:require
-    [app.frontend.components.todo-item :refer [TodoItem, ui-todo-item]]
-    [app.frontend.mutations.todo-list :as todo-api]
+    [app.frontend.components.task-item :refer [TaskItem, ui-task-item]]
+    [app.frontend.mutations.task-list :as task-api]
     [com.fulcrologic.fulcro.components :refer [defsc, factory, get-initial-state, get-query, computed, transact!!]]
     [com.fulcrologic.fulcro.dom :refer [button, div, ul]]
     ))
 
-(defsc TodoList
+(defsc TaskList
   [this {:list/keys [items, id] :as props}]
-  {:query [:list/id {:list/items (get-query TodoItem)}]
+  {:query [:list/id {:list/items (get-query TaskItem)}]
    :ident (fn [] [:list/id (:list/id props)])}
   (let [
-        change-status (fn [todo-id, status]
+        change-status (fn [task-id, status]
                         (transact!! this
-                                    [(todo-api/update-task
-                                       {:id todo-id :status (if (= status "DONE") "PENDING" "DONE")})]))
-        change-description (fn [todo-id, description]
+                                    [(task-api/update-task
+                                       {:id task-id :status (if (= status :done) :pending :done)})]))
+        change-description (fn [task-id, description]
                              (transact!! this
-                                         [(todo-api/update-task
-                                            {:id todo-id :description description})]))
-        delete-task (fn [todo-id]
+                                         [(task-api/update-task
+                                            {:id task-id :description description})]))
+        delete-task (fn [task-id]
                       (transact!! this
-                                  [(todo-api/delete-task {:todo-id todo-id :list-id id})]))
-        ui-todo-item-comp (fn [task] (ui-todo-item (
+                                  [(task-api/delete-task {:task-id task-id :list-id id})]))
+        ui-task-item-comp (fn [task] (ui-task-item (
                                                      computed task {
                                                                     :onChangeStatus      change-status
                                                                     :onDeleteTask        delete-task
@@ -37,7 +37,7 @@
                  :listStyle     "none"
                  :paddingLeft   0
                  }}
-        (map ui-todo-item-comp items)))
+        (map ui-task-item-comp items)))
   )
 
-(def ^:export ui-todo-list (factory TodoList))
+(def ^:export ui-task-list (factory TaskList))

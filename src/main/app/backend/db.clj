@@ -1,12 +1,9 @@
 (ns app.backend.db)
 
-(def todo-index (atom 5))
+(def task-index (atom 5))
 
-(def todo-table
-  (atom {1 {:todo/id 1 :todo/description "Build simple front" :todo/status "PENDING"}
-   2 {:todo/id 2 :todo/description "Integrate front with local db" :todo/status "PENDING"}
-   3 {:todo/id 3 :todo/description "Add local mutations" :todo/status "PENDING"}
-   4 {:todo/id 4 :todo/description "Integrate with pathom" :todo/status "PENDING"}}))
-
-(def list-table
-  (atom {:todo-list {:list/id :todo-list :list/items [1 2 3 4]}}))
+(def task-table
+  (atom {1 {:task/id 1 :task/description "Build simple front" :task/status :pending}
+   2 {:task/id 2 :task/description "Integrate front with local db" :task/status :pending}
+   3 {:task/id 3 :task/description "Add local mutations" :task/status :pending}
+   4 {:task/id 4 :task/description "Integrate with pathom" :task/status :pending}}))
