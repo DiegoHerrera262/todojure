@@ -1,6 +1,14 @@
 (ns app.frontend.mutations.task-list
   (:require [com.fulcrologic.fulcro.algorithms.merge :as merge]
+            [com.fulcrologic.fulcro.algorithms.form-state :as fs]
             [com.fulcrologic.fulcro.mutations :refer [defmutation]]))
+
+(defn extract-response
+  [result]
+  (-> result
+      :body
+      vals
+      first))
 
 (defn change-task-data
   [task, status, description]
@@ -31,11 +39,27 @@
   (remote [{:keys [ast]}] (assoc ast :params {:id task-id})))
 
 (defmutation create-task
-  "Create task in to do list"
-  [{:keys [description]}]
+  [{:keys [id description] :as sent}]
   (action [{:keys [state]}]
-          ; by default add new task in pending
-          (println (str "Creating task " description))
-          (swap! state assoc-in [:task/id 0] {:task/id 0 :status :pending :description description})
-          (swap! state update-in [:list/id :all :list/items] (fn [prev] (conj prev [:task/id 0]))))
-  (remote [_] true))
+          (print sent)
+          (swap! state fs/entity->pristine* [:task/id id]))
+  (ok-action [{:keys [state result]}]
+             (let [new-task (extract-response result)
+                   new-id (:task/id new-task)]
+               (swap! state assoc-in [:task/id new-id] new-task)
+               (swap! state update-in [:list/id :all :list/items] (fn [prev] (conj prev [:task/id new-id])))))
+  (remote [{:keys [ast]}] (assoc ast :params {:description description})))
+
+;; (defmutation create-task
+;;  "Create task in to do list"
+;;  [{:keys [description]}]
+;; (action [{:keys [state]}]
+;;          ; by default add new task in pending
+;;          (println (str "Creating task " description)) )
+;; (ok-action [{:keys [state result]}]
+;; (let [new-task (extract-response result)
+;;                   new-id (:task/id new-task) ]
+;;               (swap! state assoc-in [:task/id new-id] new-task)
+;;               (swap! state update-in [:list/id :all :list/items] (fn [prev] (conj prev [:task/id new-id]))) ))
+;;  (remote [_] true) )
+;;
